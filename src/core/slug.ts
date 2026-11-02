@@ -1,3 +1,6 @@
+/* eslint-disable security/detect-non-literal-regexp */
+import { escapeRegExp } from '@/utils/escape.js';
+
 /**
  * Convert string to URL-friendly slug
  */
@@ -14,7 +17,7 @@ export interface SlugOptions {
  * @returns URL-friendly slug string
  * @throws {TypeError} If input is not a string
  */
-export const slug = (str: string, options: SlugOptions = {}): string => {
+export function slug(str: string, options: SlugOptions = {}): string {
   if (typeof str !== 'string') throw new TypeError('Input must be string');
 
   const {
@@ -26,11 +29,18 @@ export const slug = (str: string, options: SlugOptions = {}): string => {
   let result = str
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-zA-Z0-9\s]/g, '')
-    .trim()
-    .replace(/\s+/g, separator);
-  if (lowercase) result = result.toLowerCase();
-  if (!result) return fallback;
+    .replace(/[^a-zA-Z0-9]+/g, separator);
 
-  return result;
-};
+  if (separator.length > 0) {
+    const escaped = escapeRegExp(separator);
+    result = result
+      .replace(new RegExp(`${escaped}+`, 'g'), separator)
+      .replace(new RegExp(`^${escaped}|${escaped}$`, 'g'), '');
+  }
+
+  result = result.trim();
+
+  if (lowercase) result = result.toLowerCase();
+
+  return result || fallback;
+}

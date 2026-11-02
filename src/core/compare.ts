@@ -7,8 +7,10 @@ import { slug, type SlugOptions } from './slug.js';
  * @param options - Slug options for comparison
  * @returns True if slugified strings are equal
  */
-export const compare = (
+export function compare(
   a: string,
   b: string,
   options: SlugOptions = {},
-): boolean => slug(a, options) === slug(b, options);
+): boolean {
+  return slug(a, options) === slug(b, options);
+}
