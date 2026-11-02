@@ -1,7 +1,7 @@
 {
   "name": "@dephub/slug",
   "type": "module",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "URL-friendly slug generator with semantic comparison and validation",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
