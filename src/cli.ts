@@ -4,13 +4,12 @@
 import { Command, CommandError } from '@dephub/command';
 import { logger } from '@dephub/logger';
 
-import { compare, isSlug, slug, type SlugOptions } from './index.js';
-import { description, name, version } from './utils/pkg.js';
+import { compare, isSlug, slug, type SlugOptions } from './index.ts';
 
 const cmd = new Command()
-  .name(name.split('/')[1] ?? 'slug')
-  .version(version)
-  .description(description);
+  .name(__PKG_NAME__.split('/')[1])
+  .description(__PKG_DESCRIPTION__)
+  .version(__PKG_VERSION__);
 
 cmd
   .command('generate', 'Convert string to URL-friendly slug')

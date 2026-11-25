@@ -1,4 +1,4 @@
-import { slug, type SlugOptions } from './slug.js';
+import { slug, type SlugOptions } from './slug.ts';
 
 /**
  * Compare two strings by their slugified versions

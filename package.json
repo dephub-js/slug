@@ -1,7 +1,7 @@
 {
   "name": "@dephub/slug",
   "type": "module",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "URL-friendly slug generator with semantic comparison and validation",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
@@ -9,13 +9,17 @@
     "slug": "./dist/cli.js"
   },
   "scripts": {
-    "prepublishOnly": "pnpm lint && pnpm check && pnpm build",
+    "prepublishOnly": "pnpm check && pnpm test && pnpm build",
     "release": "pnpm publish",
     "docs": "lineo md 'src/**/*.ts' --outFile code.md --outDir temp",
-    "check": "tsc --noEmit --skipLibCheck",
+    "test": "node --test",
+    "check": "pnpm fmt && pnpm lint && pnpm check-types",
+    "check-types": "tsc --noEmit --skipLibCheck",
     "lint": "eslint . --fix --max-warnings 0",
     "fmt": "prettier --write .",
     "clean": "rm -rf dist",
+    "prepack": "pnpm check && pnpm build",
+    "pack": "pnpm pack",
     "build": "vite build",
     "dev": "vite build -w --mode development"
   },
@@ -36,9 +40,6 @@
     "email": "dev@estarlincito.com",
     "url": "https://estarlincito.com"
   },
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "files": [
     "LICENSE",
     "README.md",
@@ -56,20 +57,26 @@
   "publishConfig": {
     "access": "public"
   },
-  "packageManager": "pnpm@10.30.3",
   "dependencies": {
-    "@dephub/command": "^2.0.0",
-    "@dephub/logger": "^1.2.0"
+    "@dephub/command": "^3.0.2",
+    "@dephub/logger": "^1.3.0"
   },
   "devDependencies": {
-    "@dephub/eslint-ts": "^1.0.5",
-    "@dephub/glob": "^1.0.2",
-    "@dephub/path": "^1.0.2",
-    "@types/node": "^26.6.6",
-    "eslint": "^10.14.0",
-    "prettier": "^3.9.10",
+    "@dephub/eslint-ts": "^1.0.6",
+    "@dephub/glob": "^1.0.3",
+    "@dephub/path": "^2.0.1",
+    "@types/node": "^26.6.10",
+    "eslint": "^10.15.0",
+    "prettier": "^3.10.1",
     "typescript": "6.0.3",
-    "vite": "^8.3.5",
+    "vite": "^8.3.8",
     "vite-plugin-dts": "^5.1.2"
-  }
+  },
+  "imports": {
+    "#/*": "./src/*"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "packageManager": "pnpm@10.30.3"
 }

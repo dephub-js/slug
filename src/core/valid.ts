@@ -1,5 +1,5 @@
 /* eslint-disable security/detect-non-literal-regexp */
-import { escapeRegExp } from '@/utils/escape.js';
+import { escapeRegExp } from '#/utils.js';
 
 /**
  * Check if string matches valid slug format with a dynamic separator
